@@ -25,11 +25,12 @@ import TodoItem from "./TodoItem.vue";
 
 const todoStore = useTodoStore();
 const appStore = useAppStore();
-
-todoStore.allTheTodos(); // retrieves all todos from the database
-
+const getTodos = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  todoStore.allTheTodos(); // retrieves all todos from the database
+};
+await getTodos();
 const todos = computed(() => todoStore.todos);
-//console.log(todoStore.paginatedTodos);
 </script>
 
 <style scoped>
