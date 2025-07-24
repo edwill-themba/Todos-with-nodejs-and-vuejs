@@ -1,11 +1,15 @@
 <template>
   <button :type="props.type" class="btn btn-primary button">
-    {{ props.text }}
+    {{ appStore.isLoading ? "wait..." : props.text }}
   </button>
 </template>
 
 <script setup>
 import { defineProps } from "vue";
+import { useAppStore } from "../../store/app";
+
+const appStore = useAppStore();
+
 const props = defineProps({
   text: {
     type: String,

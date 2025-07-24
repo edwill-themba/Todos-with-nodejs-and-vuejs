@@ -2,7 +2,6 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { useAppStore } from "./app";
 import axios from "axios";
-import Swal from "sweetalert2";
 import router from "../router/index";
 
 export const useTodoStore = defineStore("todos", () => {
@@ -49,18 +48,19 @@ export const useTodoStore = defineStore("todos", () => {
    * @param {} todo
    */
   const addTodo = async (todo) => {
+    appStore.loading = true;
     try {
       const response = await axios.post("/api/todo", {
         title: todo.title,
         body: todo.body
       });
       console.log(response);
+      appStore.loading = false;
       // adds to UI
-      userTodos.value.push(todo);
-      todo.title = "";
-      todo.body = "";
+      userTodos.value.unshift(todo);
       message.value = "todo was added success fully";
     } catch (err) {
+      appStore.loading = false;
       console.log(err);
       appStore.error = err.response.data.message;
       todo.title = "";
@@ -79,24 +79,25 @@ export const useTodoStore = defineStore("todos", () => {
       console.log(response);
     } catch (err) {
       appStore.error = err;
-      new Swal.fire({
-        title: "Todos App",
-        text: appStore.error,
-        timer: 5000
-      });
     }
   };
-
+  /**
+   * updates the selected todo
+   * @param {*} todo
+   */
   const updateTodo = async (todo) => {
+    appStore.loading = true;
     try {
       const response = await axios.put(`/api/todo/${todo.id}`, {
         title: todo.title,
         body: todo.body,
         isLiked: todo.isLiked
       });
+      appStore.loading = false;
       message.value = "todo is successfully updated";
       console.log(response);
     } catch (err) {
+      appStore.loading = false;
       appStore.error = err;
       todo.title = "";
       todo.body = "";

@@ -44,6 +44,7 @@
 <script setup>
 import { useAuthStore } from "../store/auth";
 import { useTodoStore } from "../store/todos";
+import { useAppStore } from "../store/app";
 import Error from "../components/Error.vue";
 import AddTodoButton from "../components/form-input/AddButton.vue";
 import UserTodoItem from "../components/UserTodoItem.vue";
@@ -53,16 +54,20 @@ import { ref } from "vue";
 
 const authStore = useAuthStore();
 const todoStore = useTodoStore();
+const appStore = useAppStore();
+
 const showModal = ref(false); // add modal
 const editModal = ref(false); // update modal
 const myTodos = ref([]);
 const todoToBeUpdated = ref(null); // todo needed to be edited
 // shows add todo modal form
 const showAddModal = () => {
+  todoStore.message = "";
   showModal.value = true;
 };
 // hides add todo modal form
 const closeModal = () => {
+  todoStore.message = "";
   showModal.value = false;
 };
 // calls all the todos belongs to the user
@@ -70,11 +75,13 @@ todoStore.allMyTodos();
 myTodos.value = todoStore.myTodo;
 
 const updateTodo = (todo) => {
+  todoStore.message = "";
   todoToBeUpdated.value = todo;
   editModal.value = true;
 };
 //hides the edit modal
 const closeEditModal = () => {
+  todoStore.message = "";
   editModal.value = false;
 };
 </script>
