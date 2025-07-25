@@ -19,3 +19,9 @@ This is a my first full stack todo application with nodejs
    /your-app-location/nodejs-projects/todo-node-with-mysql
 6. Run this command npm run dev
 7. Copy the url and paste it to the browser of choice.
+
+# HOW TO USE THE APP
+
+1. You can copy users email from the database and the password all users is password
+   or you can create your own users.
+2. The app authenticate users uses json web token.
