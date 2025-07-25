@@ -22,6 +22,6 @@ This is a my first full stack todo application with nodejs
 
 # HOW TO USE THE APP
 
-1. You can copy users email from the database and the password all users is password
+1. You can copy users email from the database and the password of all the users is password
    or you can create your own users.
 2. The app authenticate users uses json web token.
